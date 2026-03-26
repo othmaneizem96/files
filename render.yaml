@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: recrut-ai
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --threads 4 --timeout 120
+    envVars:
+      - key: RESUMEPARSER_API_KEY
+        sync: false          # Vous devez le renseigner manuellement dans le dashboard Render
+      - key: FLASK_ENV
+        value: production
+      - key: SECRET_KEY
+        generateValue: true  # Render génère automatiquement une clé secrète sécurisée
